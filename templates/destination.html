@@ -1,0 +1,96 @@
+{% extends 'base.html' %} {% block title %}{{ destination_str }}{% endblock %}
+{% block styles %}
+<style>
+  .row {
+    float: left;
+    width: 100%;
+    margin: 0;
+  }
+
+  .row2 {
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    width: 100%;
+    float: left;
+  }
+  .btn {
+    border: 1px solid black;
+    width: 100%;
+    margin: 10px;
+  }
+  .btn:hover,
+  .btn:active {
+    font-weight: bold;
+	  color: #000000;
+  }	
+  a {
+    text-decoration: none;
+  }
+</style>
+
+{% endblock %} {% block content %}
+<div class="row">
+  <div class="col">
+    <div class="container">
+      <h1>{{ destination_str }}</h1>
+      <p>{{ features["nListings"] }} listings</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="container">
+      <p>{{ features["avgOccupancy"] }}% Average Occupancy</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="container">
+      <p>${{ features["avgPrice"] }} Average Nightly Price Per Guest</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="container">
+      <p>${{ features["maxPrice"] }} Maximum Nightly Price Per Guest</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="container">
+      <p>${{ features["minPrice"] }} Minimum Nightly Price Per Guest</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="container">
+      <h3>Top Listings</h3>
+    </div>
+  </div>
+</div>
+
+{% for listing in top_listings %}
+<div class="row">
+  <div class="col">
+    <div class="container">
+	    <a href="https://www.airbnb.com/rooms/{{ listing["_id"] }}">
+        <button class="btn">
+		      <h5>{{ listing["name"] }}</h5>
+		      <p>Price: {{ listing["pricing"]["totalPrice"]["amountFormatted"] }}</p>
+		      <p>{{ listing["bedroomLabel"] }}, {{ listing["bedLabel"] }}, {{ listing["bathroomLabel"] }}</p>
+	      </button>
+	    </a>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}
